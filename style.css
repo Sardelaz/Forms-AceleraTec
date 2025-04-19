@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Corpo da página */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #003249;
+  font-family: 'Press Start 2P', cursive;
+  color: #FEFEFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.02) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.02) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.02) 75%);
+  background-size: 20px 20px;
+}
+
+/* Efeito de animação no fundo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  animation: moveBeams 10s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Animação do fundo */
+@keyframes moveBeams {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-20%, -20%);
+  }
+}
+
+/* Estilo do formulário */
+form {
+  background-color: #001f2e;
+  padding: 20px;
+  border: 4px solid #007EA7;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 0 10px #007EA7;
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  color: #CE4760;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px #000, 0 0 10px #D62246;
+}
+
+/* Estilo das labels */
+label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 10px;
+  color: #FEFEFF;
+}
+
+/* Estilo dos inputs e textarea */
+input[type="text"],
+input[type="url"],
+textarea,
+select {
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #007EA7;
+  background-color: #00212f;
+  color: #FEFEFF;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-size: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 126, 167, 0.4);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: #7aa7b8;
+}
+
+/* Estilo do botão */
+button {
+  background-color: #D62246;
+  color: #FEFEFF;
+  border: 3px solid #CE4760;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 10px;
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  animation: arcadeBorder 1.5s infinite;
+}
+
+button:hover {
+  background-color: #007EA7;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #007EA7;
+}
+
+/* Estilo para os integrantes (input de equipe) */
+#integrantes-container {
+  margin-bottom: 10px;
+}
+
+.integrante-input {
+  margin-bottom: 5px;
+}
+
+/* Estilo do modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #001f2e;
+  padding: 30px;
+  border-radius: 10px;
+  border: 4px solid #007EA7;
+  box-shadow: 0 0 20px #007EA7;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  color: #FEFEFF;
+  max-width: 400px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #D62246;
+  font-size: 14px;
+}
+
+.modal-content p {
+  font-size: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  background-color: #D62246;
+  color: #FEFEFF;
+  border: 2px solid #CE4760;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 10px;
+  font-family: 'Press Start 2P', cursive;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #007EA7;
+  border-color: #FEFEFF;
+}
+
+/* Estilo para o select */
+select {
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #007EA7;
+  background-color: #00212f;
+  color: #FEFEFF;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-size: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 126, 167, 0.4);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:focus {
+  border-color: #D62246;
+  box-shadow: inset 0 0 5px rgba(0, 126, 167, 0.6);
+}
+
+/* Estilos para telas pequenas */
+@media (max-width: 600px) {
+  form {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 12px;
+  }
+
+  input, textarea, select, button {
+    font-size: 8px;
+  }
+}

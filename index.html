@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario Aceleratec</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <form id="projetoForm">
+      <label for="nomeEquipe">Nome da Equipe:</label>
+      <input type="text" id="nomeEquipe" required>
+
+      <label for="turmaEquipe">Turma da Equipe:</label>
+      <select id="curso" name="curso" required>
+        <option value="" disabled selected>Selecione o curso e ano</option>
+        <option value="Comércio Exterior - 1º Ano">Comércio Exterior - 1º Ano</option>
+        <option value="Comércio Exterior - 2º Ano">Comércio Exterior - 2º Ano</option>
+        <option value="Comércio Exterior - 3º Ano">Comércio Exterior - 3º Ano</option>
+        
+        <option value="Informática para Internet - 1º Ano">Informática para Internet - 1º Ano</option>
+        <option value="Informática para Internet - 2º Ano">Informática para Internet - 2º Ano</option>
+        <option value="Informática para Internet - 3º Ano">Informática para Internet - 3º Ano</option>
+        
+        <option value="Marketing - 1º Ano">Marketing - 1º Ano</option>
+        <option value="Marketing - 2º Ano">Marketing - 2º Ano</option>
+        <option value="Marketing - 3º Ano">Marketing - 3º Ano</option>
+        
+        <option value="Recursos Humanos - 1º Ano">Recursos Humanos - 1º Ano</option>
+        <option value="Recursos Humanos - 2º Ano">Recursos Humanos - 2º Ano</option>
+        <option value="Recursos Humanos - 3º Ano">Recursos Humanos - 3º Ano</option>
+        
+        <option value="Serviços Jurídicos - 1º Ano">Serviços Jurídicos - 1º Ano</option>
+        <option value="Serviços Jurídicos - 2º Ano">Serviços Jurídicos - 2º Ano</option>
+        <option value="Serviços Jurídicos - 3º Ano">Serviços Jurídicos - 3º Ano</option>
+        
+        <option value="Desenvolvimento de Sistemas - 1º Ano">Desenvolvimento de Sistemas - 1º Ano</option>
+        <option value="Desenvolvimento de Sistemas - 2º Ano">Desenvolvimento de Sistemas - 2º Ano</option>
+        <option value="Desenvolvimento de Sistemas - 3º Ano">Desenvolvimento de Sistemas - 3º Ano</option>
+        
+        <option value="Segurança do Trabalho - 1º Ano">Segurança do Trabalho - 1º Ano</option>
+        <option value="Segurança do Trabalho - 2º Ano">Segurança do Trabalho - 2º Ano</option>
+        <option value="Segurança do Trabalho - 3º Ano">Segurança do Trabalho - 3º Ano</option>
+      </select>
+
+      <label>Jogadores da Equipe (máximo 5):</label>
+      <div id="integrantes-container">
+        <input type="text" class="integrante-input" name="integrante1" placeholder="Jogador(a) - 1" required>
+        <input type="text" class="integrante-input" name="integrante2" placeholder="Jogador(a) - 2">
+        <input type="text" class="integrante-input" name="integrante3" placeholder="Jogador(a) - 3">
+        <input type="text" class="integrante-input" name="integrante4" placeholder="Jogador(a) - 4">
+        <input type="text" class="integrante-input" name="integrante5" placeholder="Jogador(a) - 5">
+      </div>
+
+      <label for="professorAuxiliar">Professor Auxiliar (opcional):</label>
+      <input type="text" id="professorAuxiliar">
+
+      <label for="nomeProjeto">Nome do Projeto:</label>
+      <input type="text" id="nomeProjeto" required>
+
+      <label for="descricaoProjeto">Descrição do Projeto:</label>
+      <textarea id="descricaoProjeto" rows="5" required></textarea>
+
+      <label for="linkCanva">Coloque aqui o link de compartilhamento do Canva com imagens e informações do seu projeto:</label>
+      <input type="url" id="linkCanva" required placeholder="https://www.canva.com/design/...">
+      
+      <button type="submit">Enviar Projeto</button>
+    </form>
+
+    <!-- Modal de Sucesso -->
+    <div id="modalSucesso" class="modal hidden">
+      <div class="modal-content">
+        <h2>🎉 Parabéns!</h2>
+        <p>Você se inscreveu para o <strong>AceleraTec 2025</strong> 🚀</p>
+        <button onclick="fecharModal()">Fechar</button>
+      </div>
+    </div>
+
+    <!-- Scripts Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
