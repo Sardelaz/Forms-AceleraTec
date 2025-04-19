@@ -6,15 +6,15 @@ O AceleraTec funciona como um interclasses da tecnologia, onde alunos se reúnem
 
 As equipes devem desenvolver um projeto que proponha melhorias para o ambiente escolar — podendo também ter impacto mais amplo na sociedade. Ao final, todos os projetos são avaliados por uma banca de avaliadores especializados, que escolhem os melhores com base em critérios como:
 
-1 - Inovação
+• Inovação
 
-2 - Sustentabilidade
+• Sustentabilidade
 
-3 - Viabilidade
+• Viabilidade
 
-4 - Impacto Social
+• Impacto Social
 
-5 - Apresentação e Documentação
+• Apresentação e Documentação
 
 🏆 Premiações
 Para motivar ainda mais a participação, o AceleraTec oferece premiações incríveis:
@@ -26,6 +26,7 @@ Para motivar ainda mais a participação, o AceleraTec oferece premiações incr
 🏅 Reconhecimento escolar e destaque na comunidade acadêmica
 
 👥 Quem pode participar?
+
 • Alunos regularmente matriculados na escola
 
 • Equipes de até 5 integrantes
@@ -35,6 +36,7 @@ Para motivar ainda mais a participação, o AceleraTec oferece premiações incr
 • Todas as salas da escola podem montar times e participar
 
 🌱 Tema dos Projetos
+
 Os projetos devem ser baseados em sustentabilidade e impacto positivo no ambiente escolar. Exemplos incluem:
 
 • Soluções ecológicas para redução de resíduos
@@ -46,6 +48,7 @@ Os projetos devem ser baseados em sustentabilidade e impacto positivo no ambient
 • Iniciativas de economia de energia ou água no ambiente escolar
 
 📅 Etapas do Projeto
+
 1 - Formação das equipes
 
 2 - Inscrição e entrega do projeto
