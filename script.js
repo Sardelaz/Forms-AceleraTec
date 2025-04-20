@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Envio dos dados para o Firestore
-      await firestore.collection('projetos').add({
+      await firebase.firestore().collection('projetos').add({
         nomeEquipe,
         turmaEquipe,
         integrantes,
@@ -31,10 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
         nomeProjeto,
         descricaoProjeto,
         linkCanva,
-        dataCriacao: firebase.firestore.FieldValue.serverTimestamp() // Alterado para 'dataCriacao'
+        dataCriacao: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      // Mostrar modal de sucesso
       mostrarModal();
       form.reset();
 
@@ -44,44 +43,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Função para mostrar o modal
   function mostrarModal() {
     document.getElementById('modalSucesso').classList.remove('hidden');
   }
 
-  // Função para fechar o modal
-  function fecharModal() {
+  window.fecharModal = function() {
     document.getElementById('modalSucesso').classList.add('hidden');
   }
 
-  // Função para obter os projetos do Firestore
   function obterProjetos() {
-    firestore.collection('projetos').orderBy('dataCriacao', 'desc').get() 
-      .then(snapshot => {
-        const projetosContainer = document.getElementById('projetosContainer');
-        projetosContainer.innerHTML = ''; // Limpa o conteúdo antes de exibir os novos projetos
-
-        snapshot.forEach(doc => {
-          const projeto = doc.data();
-          console.log("Projeto:", projeto);  // Log para verificar o conteúdo do projeto
-          const projetoElemento = document.createElement('div');
-          projetoElemento.classList.add('projeto');
-          projetoElemento.innerHTML = `
-            <h3>${projeto.nomeProjeto}</h3>
-            <p><strong>Equipe:</strong> ${projeto.nomeEquipe}</p>
-            <p><strong>Turma:</strong> ${projeto.turmaEquipe}</p>
-            <p><strong>Integrantes:</strong> ${(Array.isArray(projeto.integrantes) ? projeto.integrantes.join(', ') : 'Nenhum integrante informado')}</p>
-            <p><strong>Descrição:</strong> ${projeto.descricaoProjeto}</p>
-            <p><strong>Link do Canva:</strong> <a href="${projeto.linkCanva}" target="_blank">Visualizar</a></p>
-            <p><strong>Inscrito em:</strong> ${projeto.dataCriacao ? new Date(projeto.dataCriacao.seconds * 1000).toLocaleDateString() : 'Data não disponível'}</p>
-          `;
-          projetosContainer.appendChild(projetoElemento);
+    if (window.firestore) {
+      window.firestore.collection('projetos').orderBy('dataCriacao', 'desc').get()
+        .then(snapshot => {
+          const projetosContainer = document.getElementById('projetosContainer');
+          if (projetosContainer) {
+            projetosContainer.innerHTML = '';
+  
+            snapshot.forEach(doc => {
+              const projeto = doc.data();
+              const projetoElemento = document.createElement('div');
+              projetoElemento.classList.add('projeto');
+              projetoElemento.innerHTML = `
+                <h3>${projeto.nomeProjeto}</h3>
+                <p><strong>Equipe:</strong> ${projeto.nomeEquipe}</p>
+                <p><strong>Turma:</strong> ${projeto.turmaEquipe}</p>
+                <p><strong>Integrantes:</strong> ${Array.isArray(projeto.integrantes) ? projeto.integrantes.join(', ') : 'Nenhum integrante informado'}</p>
+                <p><strong>Descrição:</strong> ${projeto.descricaoProjeto}</p>
+                <p><strong>Link do Canva:</strong> <a href="${projeto.linkCanva}" target="_blank">Visualizar</a></p>
+                <p><strong>Inscrito em:</strong> ${projeto.dataCriacao ? new Date(projeto.dataCriacao.seconds * 1000).toLocaleDateString() : 'Data não disponível'}</p>
+              `;
+              projetosContainer.appendChild(projetoElemento);
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Erro ao obter projetos:", error);
         });
-      }).catch(error => {
-        console.error("Erro ao obter projetos:", error);
-      });
+    } else {
+      console.error("Firestore não foi inicializado corretamente.");
+    }
   }
-
-  // Chama a função para obter os projetos assim que o DOM estiver carregado
   obterProjetos();
 });
