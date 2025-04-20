@@ -1,38 +1,72 @@
+// script.js
+import { db, serverTimestamp } from './firestorage.js';
+import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('projetoForm');
+  const modalSucesso = document.getElementById('modalSucesso');
+
+  // Função para mostrar o modal de sucesso
+  function mostrarModal() {
+    if (modalSucesso) {
+      modalSucesso.style.display = "block";
+    } else {
+      console.error("Elemento modalSucesso não encontrado no DOM.");
+    }
+  }
+
+  // Função para fechar o modal
+  window.fecharModal = function() {
+    if (modalSucesso) {
+      modalSucesso.style.display = "none";
+    } else {
+      console.error("Elemento modalSucesso não encontrado no DOM.");
+    }
+  }
+
+  // Fechar o modal se o usuário clicar fora dele
+  window.onclick = function(event) {
+    if (modalSucesso && event.target == modalSucesso) {
+      modalSucesso.style.display = "none";
+    }
+  }
 
   // Envio de dados do formulário para o Firestore
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const nomeEquipe = document.getElementById('nomeEquipe').value;
-    const turmaEquipe = document.getElementById('curso').value;
-    const integrantes = Array.from(document.querySelectorAll('.integrante-input'))
-      .map(input => input.value)
-      .filter(value => value.trim() !== "");
-    const professorAuxiliar = document.getElementById('professorAuxiliar').value;
-    const nomeProjeto = document.getElementById('nomeProjeto').value;
-    const descricaoProjeto = document.getElementById('descricaoProjeto').value;
-    const linkCanva = document.getElementById('linkCanva').value;
+    const nomeEquipe = document.getElementById('nomeEquipe')?.value;
+    const turmaEquipe = document.getElementById('curso')?.value;
+    const integrantesInputs = document.querySelectorAll('.integrante-input');
+    const integrantes = Array.from(integrantesInputs)
+      .map(input => input.value.trim())
+      .filter(value => value !== "");
+    const professorAuxiliar = document.getElementById('professorAuxiliar')?.value;
+    const nomeProjeto = document.getElementById('nomeProjeto')?.value;
+    const descricaoProjeto = document.getElementById('descricaoProjeto')?.value;
+    const linkCanva = document.getElementById('linkCanva')?.value;
 
     // Validação do link do Canva
-    if (!linkCanva.startsWith('http')) {
+    if (linkCanva && !linkCanva.startsWith('http')) {
       alert("Por favor, insira um link válido do Canva.");
       return;
     }
 
     try {
-      // Envio dos dados para o Firestore
-      await firebase.firestore().collection('projetos').add({
-        nomeEquipe,
-        turmaEquipe,
-        integrantes,
-        professorAuxiliar,
-        nomeProjeto,
-        descricaoProjeto,
-        linkCanva,
-        dataCriacao: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      const dataToSend = {
+        nomeEquipe: nomeEquipe,
+        turmaEquipe: turmaEquipe,
+        integrantes: integrantes,
+        professorAuxiliar: professorAuxiliar,
+        nomeProjeto: nomeProjeto,
+        descricaoProjeto: descricaoProjeto,
+        linkCanva: linkCanva || null,
+        dataCriacao: serverTimestamp()
+      };
+
+      console.log("Dados a serem enviados:", dataToSend); // Adicionado log para verificar os dados
+
+      await addDoc(collection(db, 'projetos'), dataToSend);
 
       mostrarModal();
       form.reset();
@@ -42,46 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("Erro ao enviar projeto. Veja o console para mais detalhes.");
     }
   });
-
-  function mostrarModal() {
-    document.getElementById('modalSucesso').classList.remove('hidden');
-  }
-
-  window.fecharModal = function() {
-    document.getElementById('modalSucesso').classList.add('hidden');
-  }
-
-  function obterProjetos() {
-    if (window.firestore) {
-      window.firestore.collection('projetos').orderBy('dataCriacao', 'desc').get()
-        .then(snapshot => {
-          const projetosContainer = document.getElementById('projetosContainer');
-          if (projetosContainer) {
-            projetosContainer.innerHTML = '';
-  
-            snapshot.forEach(doc => {
-              const projeto = doc.data();
-              const projetoElemento = document.createElement('div');
-              projetoElemento.classList.add('projeto');
-              projetoElemento.innerHTML = `
-                <h3>${projeto.nomeProjeto}</h3>
-                <p><strong>Equipe:</strong> ${projeto.nomeEquipe}</p>
-                <p><strong>Turma:</strong> ${projeto.turmaEquipe}</p>
-                <p><strong>Integrantes:</strong> ${Array.isArray(projeto.integrantes) ? projeto.integrantes.join(', ') : 'Nenhum integrante informado'}</p>
-                <p><strong>Descrição:</strong> ${projeto.descricaoProjeto}</p>
-                <p><strong>Link do Canva:</strong> <a href="${projeto.linkCanva}" target="_blank">Visualizar</a></p>
-                <p><strong>Inscrito em:</strong> ${projeto.dataCriacao ? new Date(projeto.dataCriacao.seconds * 1000).toLocaleDateString() : 'Data não disponível'}</p>
-              `;
-              projetosContainer.appendChild(projetoElemento);
-            });
-          }
-        })
-        .catch(error => {
-          console.error("Erro ao obter projetos:", error);
-        });
-    } else {
-      console.error("Firestore não foi inicializado corretamente.");
-    }
-  }
-  obterProjetos();
 });
